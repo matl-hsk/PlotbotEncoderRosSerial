@@ -1,14 +1,17 @@
 #include <Arduino.h>
 
-#include "plotbot_encoder_serial_ros_node.h"
+#include "plotbot_encoder_ros2_serializer.h"
 
-PlotbotEncoderSerialRosNode plotbotNode;
+PlotbotEncoder plotbot;
+PlotbotEncoderRos2Serializer plotbotSerializer;
 
 void setup()
 {
-  plotbotNode.setup();
+  plotbot.setup();
+  plotbotSerializer.setup(plotbot);
 }
 
 void loop()
 {
+  plotbot.update();
 }

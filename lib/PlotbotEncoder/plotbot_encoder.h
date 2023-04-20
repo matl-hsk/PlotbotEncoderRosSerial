@@ -1,14 +1,9 @@
-/// Header file for PlotbotEncoder
+// Header file for PlotbotEncoder
 
 #ifndef PLOTBOT_ENCODER_H
 #define PLOTBOT_ENCODER_H
 
 #include <ESPRotary.h>
-
-#include "pin_definitions.h"
-
-/// On/Off switches per step that would invoke the position changed callback function?
-#define CLICKS_PER_STEP 20
 
 /// @brief Plotbot with simple encoder on each axis
 class PlotbotEncoder
@@ -27,15 +22,20 @@ public:
 
 public:
   /// @brief Setup the encoder on each axis.
-  void setup();
+  /// @return 1 if setup was successful, -1 otherwise.
+  int setup();
 
   /// @brief Update the encoder on each axis. This function must be called
   /// regularly (to not miss a step).
   void update();
 
   /// @brief Get the position of each axis in meter
-  /// @param[out] positions Position of x, y, and z axis in m
-  void getPositions(float positions[3]);
+  /// @param[out] positions Position of x, y, and z axis in m. Must be a float array of size at least 3.
+  void getPositions(float *positions) const;
+
+  /// @brief Set the position of each axis in meter
+  /// @param[out] positions Position of x, y, and z axis in m. Must be a float array of size at least 3.
+  void resetPositions(float *positions = NULL);
 
 private:
   /// Rotary encoder x-Axis
